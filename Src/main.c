@@ -71,7 +71,7 @@ uint32_t bAdcFin ;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+short ValToTemp(short val) ;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -151,6 +151,8 @@ int main(void)
 				sum[i % 4] += Val[i] ;
 			}
 			for(i = 0 ; i < 4 ; i++) mblock1.ptrRegs[4 - i] = sum[i]/10 ;
+			
+			mblock1.ptrRegs[5] = ValToTemp(mblock1.ptrRegs[4]) ;
 			bAdcFin = 0 ;
 		}
 		
@@ -220,6 +222,26 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+short ValToTemp(short val) 
+{
+	short list[] = {886,922,957,993,1029,1064,1099,1134,1169,1203,1237} ;
+	int i ;
+	
+	if ( val <= list[0] )
+		return 0 ;
+	if ( val >= 1237 )
+		return 100 ;
+	
+	for(i = 1 ; i < 10 ; i++)
+	{
+		if ( val < list[i] )
+			break ;
+	}
+	
+	return ((i-1)*100 + (val - list[i-1])*100/(list[i] - list[i-1])) ;
+		
+	
+}
 
 /* USER CODE END 4 */
 
