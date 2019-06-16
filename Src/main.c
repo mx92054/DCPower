@@ -168,7 +168,7 @@ int main(void)
 		if ( GetTimer(2) )
 		{
       HAL_IWDG_Refresh(&hiwdg);
-      
+
 			HAL_ADC_Start_DMA(&hadc, (uint32_t*)&Val, 40);
 			if ( mblock1.ptrRegs[0] )
 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET) ;
@@ -232,7 +232,7 @@ short ValToTemp(short val)
 	if ( val <= list[0] )
 		return 0 ;
 	if ( val >= 1237 )
-		return 100 ;
+		return 999 ;
 	
 	for(i = 1 ; i < 10 ; i++)
 	{
