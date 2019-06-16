@@ -120,7 +120,7 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_ADC_Init();
-  //MX_IWDG_Init();
+  MX_IWDG_Init();
   MX_USART1_UART_Init();
 	
   /* USER CODE BEGIN 2 */
@@ -167,6 +167,8 @@ int main(void)
 		
 		if ( GetTimer(2) )
 		{
+      HAL_IWDG_Refresh(&hiwdg);
+      
 			HAL_ADC_Start_DMA(&hadc, (uint32_t*)&Val, 40);
 			if ( mblock1.ptrRegs[0] )
 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET) ;
